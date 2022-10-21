@@ -1,0 +1,6 @@
+﻿@model CollegePick10V2.Entities.Models.PaymentStatusModel
+
+@if (Model.IsLoggedIn && !Model.HasPaid)
+{
+<div class="bg-danger" style="padding: 3px; text-align: center;" runat="server" ID="Payment">Don't get locked out from submitting picks! Payment is due by @Model.PaymentDeadline. - <a asp-area="" asp-controller="Home" asp-action="Payment">Pay Now</a></div>
+}

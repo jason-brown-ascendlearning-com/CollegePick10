@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CollegePick10V2.Entities.CurrentWeek>
+
+@{
+    ViewData["Title"] = "Add Games";
+}
+<h2>Add Games</h2>
+<p>Use this tool to upload games and odds</p>
+<div>
+    <table class="table table-responsive table-condensed" style="width: 100%">
+        <tr>
+            <td>
+                <h4> Date</h4>
+            </td>
+            <td>
+                <h4>Favorite</h4>
+            </td>
+            <td>
+                <h4>Spread</h4>
+            </td>
+            <td>
+                <h4>Underdog</h4>
+            </td>
+            <td>
+                <h4>Over/Under</h4>
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.GameTime)</td>
+                <td class="visible-lg-block visible-md-block">@Html.DisplayFor(modelItem => item.FavoriteID)</td>
+                <td>@Html.DisplayFor(modelItem => item.PointSpread)</td>
+                <td class="visible-lg-block visible-md-block">@Html.DisplayFor(modelItem => item.UnderDogID)</td>
+                <td>@Html.DisplayFor(modelItem => item.OverUnder)</td>
+            </tr>
+        }
+    </table>
+
+    <form asp-controller="Admin" asp-action="AddOdds">
+        <input type="submit" value="Add Games" class="btn btn-primary" />
+    </form>
+</div>

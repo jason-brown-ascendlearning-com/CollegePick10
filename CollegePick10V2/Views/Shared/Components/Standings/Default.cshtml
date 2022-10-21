@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CollegePick10V2.Entities.Models.StandingsModel>
+<blockquote>
+    <h3>Current Standings</h3>
+</blockquote>
+<table class="table-hover table-striped table-condensed" style="width: 100%;">
+    <tr>
+        <td></td>
+        <td>
+            <h4>Team</h4>
+        </td>
+        <td>
+            <h4>Current Week</h4>
+        </td>
+        <td>
+            <h4>Season</h4>
+        </td>
+        <td>
+            <h4>Peanuts</h4>
+        </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Rank)</td>
+            <td class="text-capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.CurrentWeek)</td>
+            <td>@Html.DisplayFor(modelItem => item.SeasonTotal)</td>
+            <td>@Html.DisplayFor(modelItem => item.Balance)</td>
+        </tr>
+    }
+</table>

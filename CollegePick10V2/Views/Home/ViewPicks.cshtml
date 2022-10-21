@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CollegePick10V2.Entities.Models.ViewPicksModel>
+
+@{
+    ViewData["Title"] = "View Picks";
+}
+<div id="results">
+    @Html.Partial("Results", @Model)
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        setInterval(function () {
+            $('#results').load('/Home/GetResults/@Model.FirstOrDefault().WeekNumber');
+        }, 60000);
+    });
+</script>

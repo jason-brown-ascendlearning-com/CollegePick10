@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CollegePick10V2.Entities.Models.ViewPicksModel>
+
+@{
+    ViewData["Title"] = "View Picks";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    var myPicks = Model.FirstOrDefault(x => x.MyPicks);
+    <div style="padding-bottom: 20px;">
+        <h3>My Picks</h3>
+        @foreach (var game in myPicks.Picks)
+        {
+            <div class="col-md-5ths col-sm-5ths viewgame">
+                <div class="col-md-12 col-sm-12 viewteams" style="text-align: center; font-weight: bold;">@Html.DisplayFor(modelItem => game.GameProgress)</div>
+                <div class="viewteams">
+                    <table width="100%">
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => game.Favorite)</td>
+                            <td>@Html.DisplayFor(modelItem => game.FavoriteScore)</td>
+                            <td class="@Html.DisplayFor(modelItem => game.FavoriteCssClass)">-@Html.DisplayFor(modelItem => game.PointSpread)</td>
+                            <td class="@Html.DisplayFor(modelItem => game.OverCssClass)"><span>o</span>@Html.DisplayFor(modelItem => game.OverUnder)</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => game.UnderDog)</td>
+                            <td>@Html.DisplayFor(modelItem => game.UnderdogScore)</td>
+                            <td class="@Html.DisplayFor(modelItem => game.UnderdogCssClass)">+@Html.DisplayFor(modelItem => game.PointSpread)</td>
+                            <td class="@Html.DisplayFor(modelItem => game.UnderCssClass)"><span>u</span>@Html.DisplayFor(modelItem => game.OverUnder)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+}
+<div>
+    <blockquote>
+        <h3>Week @Model.FirstOrDefault().WeekNumber Picks</h3>
+    </blockquote>
+</div>
+<div class="col-md-12 col-sm-12" style="text-align: center;">
+    Week:
+    @for (var i = 1; i <= Model.FirstOrDefault().MaxWeeks + 1; i++)
+    {
+        @Html.ActionLink(i.ToString(), "ViewPicks", "Home", new { id = i }, null)
+    }
+</div>
+@foreach (var item in Model)
+{
+    <div class="col-md-12 col-sm-12 viewtitle" style="padding-left: 10px;">@Html.DisplayFor(modelItem => item.Rank).  @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName) - Total Points: @Html.DisplayFor(modelItem => item.TotalPoints)</div>
+
+    @foreach (var game in item.Picks.Where(x => x.Locked))
+    {
+        <div class="col-md-5ths col-sm-5ths viewgame">
+            <div class="col-md-12 col-sm-12 viewteams" style="text-align: center; font-weight: bold;">@Html.DisplayFor(modelItem => game.GameProgress)</div>
+            <div class="viewteams">
+                <table width="100%">
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => game.Favorite)</td>
+                        <td>@Html.DisplayFor(modelItem => game.FavoriteScore)</td>
+                        <td class="@Html.DisplayFor(modelItem => game.FavoriteCssClass)">-@Html.DisplayFor(modelItem => game.PointSpread)</td>
+                        <td class="@Html.DisplayFor(modelItem => game.OverCssClass)"><span>o</span>@Html.DisplayFor(modelItem => game.OverUnder)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => game.UnderDog)</td>
+                        <td>@Html.DisplayFor(modelItem => game.UnderdogScore)</td>
+                        <td class="@Html.DisplayFor(modelItem => game.UnderdogCssClass)">+@Html.DisplayFor(modelItem => game.PointSpread)</td>
+                        <td class="@Html.DisplayFor(modelItem => game.UnderCssClass)"><span>u</span>@Html.DisplayFor(modelItem => game.OverUnder)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+}

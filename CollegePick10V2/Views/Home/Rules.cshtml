@@ -1,0 +1,204 @@
+﻿@model CollegePick10V2.Entities.Models.AppSettingsModel
+
+@{
+    ViewData["Title"] = "League Rules";
+}
+<div class="col-lg-2 col-md-2 col-sm-1"></div>
+<div class="col-lg-8 col-md-8 col-sm-10" style="text-align: left; padding-bottom: 50px;">
+    <blockquote>
+        <h2>College Pick 10 Rules</h2>
+    </blockquote>
+    <ol>
+        <li>All picks are done through <a asp-area="" asp-controller="Home" asp-action="Index">http://www.collegepick10.com</a></li>
+        <li>Players must register through <a asp-area="" asp-controller="Account" asp-action="Register">https://www.collegepick10.com/Account/Register</a></li>
+        <li>Games begin @Model.SeasonStart and go through @Model.SeasonEnd</li>
+        <li>All games that Vegas has a line on as of the Monday prior to the games will be available to pick from. (If there are a lot of games off the board on Monday, I may wait until Tuesday to make sure we have the maximum number of games to select from)</li>
+        <li>All lines are based on the William Hill sportsbook</li>
+        <li>Each player will make 10 selections. Pick against the point spread, pick an over/under, or pick a push in either of them. Picks against the spread and over/under are worth 1 point. Push picks are worth 2 points. </li>
+        <li>Games are available to be selected until the posted kickoff time. </li>
+        <li>Once the posted kickoff times is reached, the game will be locked and unavailable to be picked. At that point, all picks for that game will appear on the View Picks page so you can view other players picks. </li>
+        <li>The player with the most correct picks each week will receive the weekly pot ($2.50 x number of participants). If multiple players tie, the weekly pot will be split equal ways. </li>
+        <li>IMPORTANT!!! - Non entry of picks will result in a 0. I will try and check on Saturday and send reminders, but please remember to enter your picks. I load the games 5 days in advance, so you have plenty of time. </li>
+        <li>The end of year pot will be half of the entry fees minus PayPal fees.</li>
+        <li>The end of year pot will be paid out based on number of participants. (Chart below)</li>
+        <li>Payment of @Model.PaymentAmount.ToString("C") is due by @Model.PaymentCutoff via PayPal</li>
+        <li>If payment is not received by @Model.PaymentCutoff, then picks will be locked for that player until payment is received. </li>
+    </ol>
+
+    <br /><br />
+    <blockquote>
+        <h2 id="payout">Payout Structure</h2>
+    </blockquote>
+    <table class="table-hover table-striped table-condensed" style="width: 100%;">
+        <thead>
+        <td><h4>Place</h4></td>
+        <td class="1thru12"><h4>1-12 Players</h4></td>
+        <td class="13thru20"><h4>13-20 Players</h4></td>
+        <td class="21thru30"><h4>21-30 Players</h4></td>
+        <td class="31thru40"><h4>31-40 Players</h4></td>
+        <td class="41thru50"><h4>41-50 Players</h4></td>
+        <td class="51thru60"><h4>51-60 Players</h4></td>
+        <td class="61thru80"><h4>61-80 Players</h4></td>
+        <td class="81thru100"><h4>81-100 Players</h4></td>
+        <td class="101thru120"><h4>101-120 Players</h4></td>
+        <td class="121thru140"><h4>121-140 Players</h4></td>
+        </thead>
+        <tr>
+            <td>1</td>
+            <td class="1thru12">50%</td>
+            <td class="13thru20">45%</td>
+            <td class="21thru30">40%</td>
+            <td class="31thru40">37%</td>
+            <td class="41thru50">35%</td>
+            <td class="51thru60">32%</td>
+            <td class="61thru80">30%</td>
+            <td class="81thru100">27.5%</td>
+            <td class="101thru120">25%</td>
+            <td class="121thru140">23%</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="1thru12">30%</td>
+            <td class="13thru20">30%</td>
+            <td class="21thru30">27%</td>
+            <td class="31thru40">25%</td>
+            <td class="41thru50">22.5%</td>
+            <td class="51thru60">21%</td>
+            <td class="61thru80">20%</td>
+            <td class="81thru100">18.5%</td>
+            <td class="101thru120">17%</td>
+            <td class="121thru140">16%</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="1thru12">20%</td>
+            <td class="13thru20">15%</td>
+            <td class="21thru30">15%</td>
+            <td class="31thru40">15%</td>
+            <td class="41thru50">15%</td>
+            <td class="51thru60">15%</td>
+            <td class="61thru80">15%</td>
+            <td class="81thru100">14%</td>
+            <td class="101thru120">13%</td>
+            <td class="121thru140">12.15%</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="1thru12"></td>
+            <td class="13thru20">10%</td>
+            <td class="21thru30">10%</td>
+            <td class="31thru40">10%</td>
+            <td class="41thru50">10%</td>
+            <td class="51thru60">10.1%</td>
+            <td class="61thru80">10%</td>
+            <td class="81thru100">9.5%</td>
+            <td class="101thru120">9.25%</td>
+            <td class="121thru140">9%</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30">8%</td>
+            <td class="31thru40">7.5%</td>
+            <td class="41thru50">7.5%</td>
+            <td class="51thru60">7.6%</td>
+            <td class="61thru80">7.5%</td>
+            <td class="81thru100">7%</td>
+            <td class="101thru120">6.5%</td>
+            <td class="121thru140">6%</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40">5.5%</td>
+            <td class="41thru50">5.5%</td>
+            <td class="51thru60">5.6%</td>
+            <td class="61thru80">5.5%</td>
+            <td class="81thru100">5.25%</td>
+            <td class="101thru120">5.25%</td>
+            <td class="121thru140">5%</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40"></td>
+            <td class="41thru50">4.5%</td>
+            <td class="51thru60">4.6%</td>
+            <td class="61thru80">4.5%</td>
+            <td class="81thru100">4.25%</td>
+            <td class="101thru120">4.25%</td>
+            <td class="121thru140">4%</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40"></td>
+            <td class="41thru50"></td>
+            <td class="51thru60">4.1%</td>
+            <td class="61thru80">4%</td>
+            <td class="81thru100">3.5%</td>
+            <td class="101thru120">3.5%</td>
+            <td class="121thru140">3%</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40"></td>
+            <td class="41thru50"></td>
+            <td class="51thru60"></td>
+            <td class="61thru80">3.5%</td>
+            <td class="81thru100">3%</td>
+            <td class="101thru120">2.75%</td>
+            <td class="121thru140">2.5%</td>
+        </tr>
+        <tr>
+            <td>10-12</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40"></td>
+            <td class="41thru50"></td>
+            <td class="51thru60"></td>
+            <td class="61thru80"></td>
+            <td class="81thru100">2.5%</td>
+            <td class="101thru120">2.4%</td>
+            <td class="121thru140">2.25%</td>
+        </tr>
+        <tr>
+            <td>13-15</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40"></td>
+            <td class="41thru50"></td>
+            <td class="51thru60"></td>
+            <td class="61thru80"></td>
+            <td class="81thru100"></td>
+            <td class="101thru120">2.1%</td>
+            <td class="121thru140">2.15%</td>
+        </tr>
+        <tr>
+            <td>16-18</td>
+            <td class="1thru12"></td>
+            <td class="13thru20"></td>
+            <td class="21thru30"></td>
+            <td class="31thru40"></td>
+            <td class="41thru50"></td>
+            <td class="51thru60"></td>
+            <td class="61thru80"></td>
+            <td class="81thru100"></td>
+            <td class="101thru120"></td>
+            <td class="121thru140">2.05%</td>
+        </tr>
+    </table>
+</div>
+<div class="col-lg-2 col-md-2 col-sm-1"></div>  

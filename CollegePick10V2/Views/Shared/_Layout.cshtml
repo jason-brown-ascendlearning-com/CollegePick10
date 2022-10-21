@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:image" content="http://www.collegepick10.com/logo.png" />
+    <title>@ViewData["Title"] - College Pick 10</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/icomoon.css" />
+    <link rel="stylesheet" href="~/css/animate-custom.css" />
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+
+    <script src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/modernizr.custom.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function SubmitPayment(id) {
+            $('#item-number').val(id);
+            $('#payPal').submit();
+        }
+    </script>
+</head>
+<body data-spy="scroll" data-offset="0" data-target="#navbar-main">
+    <form id="payPal" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="item_number" value="">
+        <input type="hidden" name="hosted_button_id" value="W76864MARSTNJ">
+    </form>
+
+    <div id="navbar-main">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <img src="~/img/logo.png" style="width: 35px; background: none;" />
+                    </button>
+                    <a class="navbar-brand hidden-xs hidden-sm" href="#home" style="padding: 8px 8px;"><img src="~/img/logo.png" style="width: 35px; background: none;" /></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" class="smoothScroll">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="EnterPicks" class="smoothScroll"> Enter Picks</a></li>
+                        <li> <a asp-area="" asp-controller="Home" asp-action="ViewPicks" class="smoothScroll"> View Picks</a></li>
+                        <li> <a asp-area="" asp-controller="Home" asp-action="Rules" class="smoothScroll"> League Rules</a></li>
+                        <li><a href="https://www.facebook.com/groups/872058620398611" target="_blank">Faceboook Group</a></li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+
+                </div><!--/.nav-collapse -->
+            </div>
+            @await Component.InvokeAsync("Shared")            
+        </div>
+    </div>
+
+    <!-- ==== HEADERWRAP ==== -->
+    <div id="headerwrap" id="home" name="home">
+        <header class="clearfix">
+            <h1><img src="~/img/logo.png" style="width: 75px;" /> College Pick 10</h1>
+            <p>Get in the game!</p>
+        </header>
+    </div><!-- /headerwrap -->
+
+    <div id="content">
+        <main role="main" class="row">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

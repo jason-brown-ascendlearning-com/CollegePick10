@@ -1,0 +1,99 @@
+﻿@model CollegePick10V2.Entities.Models.PickModel
+<blockquote>
+    <h3>This Weeks Games</h3>
+</blockquote>
+<div>
+    <p>Choose 10 bets. You can choose against the point spread, the over/under, or a push in either. Correct point spread and over/under picks are worth 1 point. Correct push picks are worth 2 points. Picks are submitted automatically when they are clicked. If you change your mind, simply click it again and the pick will be removed. </div>
+    <div class="pickCount" id="@Model.PickCount"></div>
+    @foreach (var item in Model.Schedule)
+    {
+        <div class="col-md-4 gamecard @if (item.Locked) {
+               @: disabled
+            }">
+            <div class="col-md-12 col-sm-12 teams" style="text-align: center; font-weight: bold;">
+                @Html.DisplayFor(modelItem => item.GameProgress)
+            </div>
+            <div>
+                <div class="col-md-5 col-sm-5 teams">
+                    <div>
+                        @if (item.FavortieRank > 0)
+                        {
+                            @: #
+                        }
+                        @Html.DisplayFor(modelItem => item.FavortieRank) @Html.DisplayFor(modelItem => item.Favorite)
+                    </div>
+                    <div>
+                        @if (item.UnderdogRank > 0)
+                        {
+                            @: #
+                        }
+                        @Html.DisplayFor(modelItem => item.UnderdogRank) @Html.DisplayFor(modelItem => item.UnderDog)
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1 teams">
+                    @if (item.Locked)
+                    {
+                        <div>@Html.DisplayFor(modelItem => item.FavoriteScore)</div>
+                        <div>@Html.DisplayFor(modelItem => item.UnderdogScore)</div>
+                    }
+                </div>
+                <div class="col-md-3 col-sm-3 spread">
+                    <a @if (item.Locked) { @: disabled="disabled"
+                       } else { @: onclick="PickSelection(@Html.DisplayFor(modelItem => item.GameID), 'spread', 'favorite')"
+                       }>
+                        <div id="favorite-@Html.DisplayFor(modelItem => item.GameID)" class="@Html.DisplayFor(modelItem => item.FavoriteCssClass)">-@Html.DisplayFor(modelItem => item.PointSpread)</div>
+                    </a>
+                    <a @if (item.Locked) { @: disabled="disabled"
+                       } else { @: onclick="PickSelection(@Html.DisplayFor(modelItem => item.GameID), 'spread', 'underdog')"
+                       }>
+                        <div id="underdog-@Html.DisplayFor(modelItem => item.GameID)" class="@Html.DisplayFor(modelItem => item.UnderdogCssClass)">+@Html.DisplayFor(modelItem => item.PointSpread)</div>
+                    </a>
+                    @if (item.PointSpread % 1 == 0)
+                    {
+                        <a @if (item.Locked) { @: disabled="disabled"
+                           } else { @: onclick="PickSelection(@Html.DisplayFor(modelItem => item.GameID), 'spread', 'push')"
+                           }>
+                            <div id="push-@Html.DisplayFor(modelItem => item.GameID)" class="@Html.DisplayFor(modelItem => item.SpreadPushCssClass)">Push</div>
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="@if (item.Locked) {
+                                @: disabled-inner
+                                 } else {
+                                @: nostyle
+                                } ">&nbsp;</div>
+                    }
+                </div>
+                <div class="col-md-3 col-sm-3 spread">
+                    <a @if (item.Locked) { @: disabled="disabled"
+                       } else { @: onclick="PickSelection(@Html.DisplayFor(modelItem => item.GameID), 'overunder', 'over')"
+                       }>
+                        <div id="over-@Html.DisplayFor(modelItem => item.GameID)" class="@Html.DisplayFor(modelItem => item.OverCssClass)"><span>o</span>@Html.DisplayFor(modelItem => item.OverUnder)</div>
+                    </a>
+                    <a @if (item.Locked) { @: disabled="disabled"
+                       } else { @: onclick="PickSelection(@Html.DisplayFor(modelItem => item.GameID), 'overunder', 'under')"
+                       }>
+                        <div id="under-@Html.DisplayFor(modelItem => item.GameID)" class="@Html.DisplayFor(modelItem => item.UnderCssClass)"><span>u</span>@Html.DisplayFor(modelItem => item.OverUnder)</div>
+                    </a>
+                    @if (item.OverUnder % 1 == 0)
+                    {
+                        <a @if (item.Locked) { @: disabled="disabled"
+                           } else { @: onclick="PickSelection(@Html.DisplayFor(modelItem => item.GameID), 'overunder', 'overunderpush')"
+                           }>
+                            <div id="overunderpush-@Html.DisplayFor(modelItem => item.GameID)" class="@Html.DisplayFor(modelItem => item.OverUnderPushCssClass)">Push</div>
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="@if (item.Locked) {
+                                @: disabled-inner
+                                 } else {
+                                @: nostyle
+                                } ">&nbsp;</div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

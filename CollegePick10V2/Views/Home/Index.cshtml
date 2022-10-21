@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CollegePick10V2.Entities.Models.ScheduleModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    @*<p><b>
+    IMPORTANT!! - All games currently in the system are for testing purposes until we get closer to the actual season. Feel free to make picks and try and find issues.
+    <br />All pick and game data will be cleared out on 8/20 and live data will be uploaded.
+</b></p>*@
+</div>
+
+<div id="schedule">
+    @Html.Partial("Schedule", @Model)
+</div>
+<div class="col-lg-4 callout">    
+    @await Component.InvokeAsync("Standings")
+    @await Component.InvokeAsync("Payout")
+</div>
+<script type="text/javascript">
+    $(function () {
+        setInterval(function () {
+            $('#schedule').load('/Home/GetSchedule');
+        }, 30000);
+    });
+</script>

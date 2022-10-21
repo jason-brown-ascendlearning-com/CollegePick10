@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CollegePick10V2.Entities.Models.ScheduleModel>
+
+<div class="col-lg-8 callout">
+    <blockquote>
+        <h3>This Weeks Games</h3>
+    </blockquote>
+    <div class="col-12">
+        Home Team is in all CAPS
+    </div>
+    <table class="table table-responsive table-condensed" style="width: 100%">
+        <thead>
+            <tr>
+                <td>
+                    <h4>Date/Time</h4>
+                </td>
+                <td>
+                    <h4>Matchup</h4>
+                </td>
+                <td>
+                    <h4>Score</h4>
+                </td>
+                <td>
+                    <h4>Spread</h4>
+                </td>
+                <td>
+                    <h4>Over/Under</h4>
+                </td>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="vertical-align: middle;"><a href="@Html.DisplayFor(modelItem => item.GameUrl)" target="_blank" style="text-decoration: underline;">@Html.DisplayFor(modelItem => item.GameProgress)</a></td>
+
+                <td style="text-align: left;">
+                    <div class="col-12">
+                        @if (item.FavortieRank > 0)
+                        {
+                            @: #
+                        }
+                        @Html.DisplayFor(modelItem => item.FavortieRank) @Html.DisplayFor(modelItem => item.Favorite)
+                    </div>
+                    <div class="col-12">
+                        @if (item.UnderdogRank > 0)
+                        {
+                            @: #
+                        }
+                        @Html.DisplayFor(modelItem => item.UnderdogRank) @Html.DisplayFor(modelItem => item.UnderDog)
+                    </div>
+                </td>
+                <td>
+                    <div class="col-12">@Html.DisplayFor(modelItem => item.FavoriteScore)</div>
+                    <div class="col-12">@Html.DisplayFor(modelItem => item.UnderdogScore)</div>
+                </td>
+                <td>
+                    <div class="col-12 @Html.DisplayFor(modelItem => item.FavoriteCssClass)">-@Html.DisplayFor(modelItem => item.PointSpread)</div>
+                    <div class="col-12 @Html.DisplayFor(modelItem => item.UnderdogCssClass)">+@Html.DisplayFor(modelItem => item.PointSpread)</div>
+                </td>
+                <td>
+                    <div class="col-12 @Html.DisplayFor(modelItem => item.OverCssClass)">o @Html.DisplayFor(modelItem => item.OverUnder)</div>
+                    <div class="col-12 @Html.DisplayFor(modelItem => item.UnderCssClass)">u @Html.DisplayFor(modelItem => item.OverUnder)</div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

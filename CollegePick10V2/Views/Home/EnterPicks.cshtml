@@ -1,0 +1,121 @@
+﻿@model CollegePick10V2.Entities.Models.PickModel
+
+@{
+    ViewData["Title"] = "Enter Picks";
+}
+
+@if (!Model.IsUserLocked)
+{
+    <div id="picks">
+        @Html.Partial("Picks", @Model)
+    </div>
+}
+else
+{
+    <div id="nonPayment" class="bg-danger">
+        The payment deadline has been reached and you have not completed payment. Please use the Pay button above to submit payment and enable pick entry.
+    </div>
+}
+
+<div class="alert-container">
+    <div class="alert">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        setInterval(function () {
+            $('#picks').load('/Home/RefreshPicks');
+        }, 60000);
+        var alertContainer = $(".alert-container");
+        
+
+        alertContainer.hide();
+    });
+    function ShowToast() {
+        var alertContainer = $(".alert-container");
+        var alertbox = $(".alert");
+        pickCount = parseInt($(".pickCount").attr("id"));
+        alertbox.html('You have entered ' + pickCount + ' picks.');
+        alertContainer.slideDown();
+        window.setTimeout(function () {
+            alertContainer.slideUp();
+        }, 2500);
+    }
+    function PickSelection(id, type, pick) {
+        var selected = $('#' + pick + '-' + id).hasClass(type + '-' + id);
+
+        var alertContainer = $(".alert-container");
+        var alertbox = $(".alert");
+        var pickCount = $(".pickCount").attr("id");
+        alertContainer.removeClass('red-alert');
+        alertContainer.addClass('blue-alert');
+        var added = false;
+        if (!selected) {
+            $('.' + type + '-' + id).each(function () {
+                if ($(this).attr("id") != '#' + pick + '-' + id) {
+                    $(this).removeClass(type + '-' + id).removeClass('bg-success');
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddPick",
+                data: { "gameId": id, "pickType": pick },
+                success: function (response) {
+                    if (response.result == true) {
+                        $('#' + pick + '-' + id).addClass(type + '-' + id).addClass('bg-success');
+                        $('#picks').load('/Home/GetPicks', function () { ShowToast(); });                        
+                    }
+                    else {
+                        $('#picks').load('/Home/GetPicks');
+                        alertbox.html(response.error);
+                        alertContainer.slideDown();
+                        alertContainer.addClass('red-alert');
+                        alertContainer.removeClass('blue-alert');
+                        window.setTimeout(function () {
+                            alertContainer.slideUp();
+                        }, 2500);
+                    }
+                },
+                failure: function (response) {
+                    alertbox.html(response.error);
+                    alertContainer.slideDown();
+                    window.setTimeout(function () {
+                        alertContainer.slideUp();
+                    }, 2500);
+                },
+                error: function (response) {
+                    alertbox.html(response.error);
+                    alertContainer.slideDown();
+                    window.setTimeout(function () {
+                        alertContainer.slideUp();
+                    }, 2500);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Home/RemovePick",
+                data: { "gameId": id, "pickType": pick },
+                success: function (response) {
+                    $('#picks').load('/Home/GetPicks', function () { ShowToast(); });
+                },
+                failure: function (response) {
+                    alertbox.html(response.error);
+                    alertContainer.slideDown();
+                    window.setTimeout(function () {
+                        alertContainer.slideUp();
+                    }, 2500);
+                },
+                error: function (response) {
+                    alertbox.html(response.error);
+                    alertContainer.slideDown();
+                    window.setTimeout(function () {
+                        alertContainer.slideUp();
+                    }, 2500);
+                }
+            });
+        }        
+    }
+</script>
